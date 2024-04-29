@@ -136,11 +136,10 @@ def get_moon_sign_info(url, selector):
 
 def send_moon_sign_info():
     moon_sign_url = "https://mirkosmosa.ru/lunar-calendar/phase-moon/lunar-day-today"
-    moon_sign_selector = ".moon_desc_plus"
+    moon_sign_selector = ".div_table:nth-of-type(3)"
     moon_info = get_moon_sign_info(moon_sign_url, moon_sign_selector)
     message_text = f"🌙 <u>Информация о знаке Луны на сегодня:</u> 🌙\n\n<i>{moon_info}</i>\n\nБесплатный бот по раскладу Таро: {TARO_BOT_USERNAME}"
     send_to_telegram_channel(message_text)
-
 def get_day_of_week_info(url, selector):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -180,9 +179,9 @@ def send_horoscopes():
 
 schedule.every().friday.at("17:23").do(send_weekly_horoscopes)
 schedule.every().day.at('05:00').do(send_horoscopes)
-schedule.every().day.at('10:36').do(send_moon_phase_info)
-schedule.every().day.at('10:34').do(send_moon_sign_info)
-schedule.every().day.at('10:35').do(send_day_of_week_info)
+schedule.every().day.at('13:16').do(send_moon_phase_info)
+schedule.every().day.at('13:15').do(send_moon_sign_info)
+schedule.every().day.at('13:16').do(send_day_of_week_info)
 while True:
     schedule.run_pending()
     time.sleep(1)
